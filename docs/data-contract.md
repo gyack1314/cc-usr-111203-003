@@ -1,0 +1,7 @@
+# 集合预报对照
+
+valid_day-issued_day必须等于lead。验证配对以(valid_day,lead)标识，as_of_lag_days=a表示最晚可知日为valid_day-a，issued_day与recorded_day都不得晚于该日。对每系统该配对先取最大issued_day，再取已知最大revision，记录日同样用于可见性；同业务键、同修订而载荷不同应拒绝，不从版本拼接成员。members中null是缺成员，空列表或任何null使该记录不完整。
+
+blocks是闭区间公历日期，彼此无重叠且覆盖所有共同验证日期。同块可含多个lead，lead分层的原始均值按配对等权；每次先抽整块，再在副本内按lead汇总。fair评分要求全部比较系统和reference的该配对m>=2，经验与fair使用各自明确的共同样本，不能不披露地混用。bootstrap区间采用公开percentiles的type-7经验分位；任何无法定义的skill副本意味着该lead的skill区间不可正式给出。
+
+当前工具只数修订和成员，不选择配对或算评分。
